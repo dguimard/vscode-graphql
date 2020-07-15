@@ -22,7 +22,7 @@ export class GraphQLCodeLensProvider implements CodeLensProvider {
 
   public provideCodeLenses(
     document: TextDocument,
-    token: CancellationToken,
+    _token: CancellationToken,
   ): CodeLens[] | Thenable<CodeLens[]> {
     const literals: ExtractedTemplateLiteral[] = this.sourceHelper.extractAllTemplateLiterals(
       document,
@@ -35,9 +35,7 @@ export class GraphQLCodeLensProvider implements CodeLensProvider {
           new Position(literal.position.line, 0),
         ),
         {
-          title: `Execute ${capitalize(
-            literal.definition.operation,
-          )}`,
+          title: `Execute ${capitalize(literal.definition.operation)}`,
           command: "extension.contentProvider",
           arguments: [literal],
         },
